@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>About Us</title>
+  <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+</head>
+<body>
+  <nav style="background:#0d6efd; padding:10px;">
+    <a href="{% url 'home' %}" style="color:#fff; margin-right:15px;">Home</a>
+    <a href="{% url 'about' %}" style="color:#fff; font-weight:600;">About</a>
+  </nav>
+
+  <div class="container">
+    <h1>About Our Restaurant</h1>
+    <div class="section">
+      <img src="{% static 'home/restaurant.jpg' %}" alt="Restaurant"
+           style="max-width:100%; border-radius:8px; margin-bottom:15px;">
+      <p>
+        We’re a neighborhood-friendly kitchen serving fresh, seasonal dishes.
+        From farm-sourced ingredients to handcrafted desserts, our team focuses
+        on quality, speed, and a warm experience—dine-in or delivery.
+      </p>
+    </div>
+    <a href="{% url 'home' %}" class="button">Back to Home</a>
+  </div>
+</body>
+</html>
