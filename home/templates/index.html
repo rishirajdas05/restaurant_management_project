@@ -13,7 +13,15 @@
             <p>Track orders, manage products, and monitor everything in one place.</p>
             <a href="{% url 'orders:lists' %}" class="button">View Orders</a>
             <a href="{% url 'products:list' %}" class="button">Manage products</a>
+            <nav style="background:#0d6efd; padding:10px;">
+                <a href="{% url 'home' %}" style="color:#fff; margin-right:15px;">Home</a>
+                <a href="{% url 'about' %}" style="color:#fff;">About</a>
+                </nav>
+
+            
         </div>
+
+    
     </div>        
 </body>
 </html>
