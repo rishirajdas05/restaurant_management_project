@@ -1,0 +1,19 @@
+{% load static %}
+<!doctype html>
+<html>
+    <meta charset="utf-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Restraurant Management</h1>
+
+        <div class="section">
+            <p>Track orders, manage products, and monitor everything in one place.</p>
+            <a href="{% url 'orders:lists' %}" class="button">View Orders</a>
+            <a href="{% url 'products:list' %}" class="button">Manage products</a>
+        </div>
+    </div>        
+</body>
+</html>
