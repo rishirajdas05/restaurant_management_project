@@ -16,5 +16,10 @@ def index(request):
     }
     return render(request, "index.html", context)
     
-    
+def index(request):
+    context = {
+        "restaurant_name": "Foodie Paradise",
+        "restaurant_phone": getattr(settings, "RESTAURANT_PHONE", "+91 98765 43210")
+    }
+    return render(request, "index.html", context)  
     # Create your views here.
