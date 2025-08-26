@@ -1,47 +1,41 @@
 {% load static %}
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Restaurant Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurant_name }} - Home</title>
+    <link rel="stylesheet" href="{% static 'home/style.css' %}">
 </head>
-<body style="margin:0; font-family: Arial, sans-serif; background:#f8f9fa; color:#333;">
+<body>
+    <!-- Header -->
+    <header>
+        <h2>{{ restaurant_name }}</h2>
+    </header>
 
-  <!-- Navigation -->
-  <nav style="background:#0d6efd; padding:15px;">
-    <a href="{% url 'home' %}" style="color:#fff; margin-right:15px; text-decoration:none; font-weight:bold;">Home</a>
-    <a href="{% url 'about' %}" style="color:#fff; text-decoration:none;">About</a>
-  </nav>
-
-  <!-- Main container -->
-  <div style="max-width:900px; margin:auto; padding:30px; text-align:center;">
-    <h1 style="font-size:2.5rem; color:#2c3e50;">
-
-      Welcome to {{ restaurant_name }}
-
-    </h1>
-    <p style="font-size:1.1rem; line-height:1.6; margin-bottom:25px;">
-      Manage orders, products, and accounts effortlessly from one platform. 
-      Our system is designed to help you run your restaurant smoothly and efficiently.
-    </p>
-    <p><a href="{% url 'contact' %}">Contact Us</a></p>
-    
+    <!-- Main Container -->
     <div class="container">
-    <h1>Homepage</h1>
-    <p>Welcome to our restaurant website!</p>
-    <p><strong>Phone:</strong> {{ restaurant_phone }}</p>
-</div>
+        <h1>Welcome to {{ restaurant_name }}! 🍴</h1>
+        <p>
+            We’re delighted to serve you delicious food and provide you with 
+            a great dining experience. Explore our menu, place your orders, 
+            and enjoy your meal with us!
+        </p>
 
-    <!-- Action buttons -->
-    <div>
-      <a href="{% url 'orders:list' %}" style="display:inline-block; padding:12px 20px; background:#0d6efd; color:#fff; border-radius:6px; text-decoration:none; margin:5px;">
-        View Orders
-      </a>
-      <a href="{% url 'products:list' %}" style="display:inline-block; padding:12px 20px; background:#20c997; color:#fff; border-radius:6px; text-decoration:none; margin:5px;">
-        Manage Products
-      </a>
+        <!-- Contact Information -->
+        <h3>Contact Us</h3>
+        <p><strong>Phone:</strong> {{ restaurant_phone }}</p>
+        <p><strong>Email:</strong> support@example.com</p>
+        <p><strong>Address:</strong> 123, Main Street, Gwalior, MP, India</p>
+
+        <!-- Navigation Links -->
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'menu_list' %}">Menu</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </nav>
     </div>
-  </div>
-
 </body>
 </html>
