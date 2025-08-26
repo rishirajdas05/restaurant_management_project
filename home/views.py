@@ -10,5 +10,11 @@ def index(request):
         "restaurant_name": settings.RESTAURANT_NAME
     }
     return render(request, "index.html", context)
-
-# Create your views here.
+def index(request):
+    context = {
+        "restaurant_phone": settings.RESTAURANT_PHONE
+    }
+    return render(request, "index.html", context)
+    
+    
+    # Create your views here.
