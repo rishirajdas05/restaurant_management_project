@@ -22,4 +22,6 @@ def index(request):
         "restaurant_phone": getattr(settings, "RESTAURANT_PHONE", "+91 98765 43210")
     }
     return render(request, "index.html", context)  
-    # Create your views here.
+    
+def reservations(request):
+    return render(request, "reservations.html") 
