@@ -1,32 +1,70 @@
+/* General Styles */
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f9f9;
     margin: 0;
     padding: 0;
     color: #333;
 }
 
+/* Header */
 header {
-    background: #4CAF50;
+    background: #2c3e50;
     color: white;
     padding: 20px;
     text-align: center;
 }
-
-h1 {
-    margin: 20px 0;
-    text-align: center;
+header h2 {
+    margin: 0;
+}
+nav {
+    margin-top: 10px;
+}
+nav a {
+    margin: 0 12px;
+    color: #f1f1f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+nav a:hover {
+    color: #f39c12;
 }
 
+/* Container */
 .container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    flex: 1;
+    width: 85%;
+    margin: 20px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-p {
-    line-height: 1.6;
+/* Headings */
+h1 {
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+h2 {
+    color: #34495e;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Lists */
+ul {
+    padding-left: 20px;
+}
+ul li {
+    margin: 8px 0;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #ccc;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
 }
