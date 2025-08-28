@@ -1,41 +1,23 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ restaurant_name }} - Home</title>
-    <link rel="stylesheet" href="{% static 'home/style.css' %}">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <h2>{{ restaurant_name }}</h2>
-    </header>
+{% extends "base.html" %}
 
-    <!-- Main Container -->
-    <div class="container">
-        <h1>Welcome to {{ restaurant_name }}! 🍴</h1>
-        <p>
-            We’re delighted to serve you delicious food and provide you with 
-            a great dining experience. Explore our menu, place your orders, 
-            and enjoy your meal with us!
-        </p>
+{% block title %}Home - My Restaurant{% endblock %}
 
-        <!-- Contact Information -->
-        <h3>Contact Us</h3>
-        <p><strong>Phone:</strong> {{ restaurant_phone }}</p>
-        <p><strong>Email:</strong> support@example.com</p>
-        <p><strong>Address:</strong> 123, Main Street, Gwalior, MP, India</p>
+{% block content %}
+    <h1>Welcome to My Restaurant 🍴</h1>
+    <p>
+        We’re delighted to serve you delicious food and a great dining experience.  
+        Browse our menu, make reservations, or contact us directly using the links above.
+    </p>
 
-        <!-- Navigation Links -->
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'menu_list' %}">Menu</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</body>
-</html>
+    <h2>Today’s Highlights</h2>
+    <ul>
+        <li>Special Combo Meal – ₹299</li>
+        <li>Refreshing Cold Coffee – ₹120</li>
+        <li>Family Pizza Offer – Buy 1 Get 1 Free</li>
+    </ul>
+
+    <p>
+        Enjoy your meal and have a wonderful time with us.  
+        <strong>Call us:</strong> +91 98765 43210
+    </p>
+{% endblock %}
