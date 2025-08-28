@@ -8,4 +8,12 @@ def menu_list(request):
         {"id": 3, "name": "Pasta Alfredo", "price": 220},
         {"id": 4, "name": "Cold Coffee", "price": 120},
     ]
-    return render(request, "menu_list.html", {"menu_items": menu_items})
+    return render(request, "menu_list.html", {"menu_items": menu_items})    
+    
+    
+except Exception as e:
+    # Log error for debugging (in real apps use logging)
+    print(f"Error in menu_list view: {e}")
+    return HttpResponseServerError(
+        "<h1>Something went wrong 😢</h1><p>Please try again later.</p>"
+        )
