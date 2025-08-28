@@ -1,23 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Home - My Restaurant{% endblock %}
 
 {% block content %}
-    <h1>Welcome to My Restaurant 🍴</h1>
-    <p>
-        We’re delighted to serve you delicious food and a great dining experience.  
-        Browse our menu, make reservations, or contact us directly using the links above.
-    </p>
+  <!-- Logo -->
+  <div style="text-align:center; margin-bottom: 28px;">
+    <img src="{% static 'home/logo.png' %}" alt="My Restaurant Logo" class="logo">
+  </div>
 
-    <h2>Today’s Highlights</h2>
-    <ul>
-        <li>Special Combo Meal – ₹299</li>
-        <li>Refreshing Cold Coffee – ₹120</li>
-        <li>Family Pizza Offer – Buy 1 Get 1 Free</li>
-    </ul>
+  <h1>Welcome to My Restaurant 🍴</h1>
+  <p>
+    We’re delighted to serve you delicious food and a great dining experience.
+    Browse our menu, make reservations, or contact us directly using the links above.
+  </p>
 
-    <p>
-        Enjoy your meal and have a wonderful time with us.  
-        <strong>Call us:</strong> +91 98765 43210
-    </p>
+  <h2>Today’s Highlights</h2>
+  <ul>
+    <li>Special Combo Meal – ₹299</li>
+    <li>Refreshing Cold Coffee – ₹120</li>
+    <li>Family Pizza Offer – Buy 1 Get 1 Free</li>
+  </ul>
+
+  <p>
+    Enjoy your meal and have a wonderful time with us.
+    <strong>Call us:</strong> +91 98765 43210
+  </p>
 {% endblock %}
