@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Feedback - My Restaurant{% endblock %}
+
+{% block content %}
+  <h1>Leave Your Feedback</h1>
+  <p>We value your thoughts! Please share your comments below.</p>
+
+  {% if messages %}
+    <ul style="list-style:none; padding-left:0;">
+      {% for message in messages %}
+        <li style="margin:10px 0; padding:10px; border-radius:6px; 
+                   {% if message.tags == 'success' %}background:#eaf7ea; color:#2e7d32; border:1px solid #c8e6c9;
+                   {% elif message.tags == 'error' %}background:#fdecea; color:#c62828; border:1px solid #f5c6cb;
+                   {% else %}background:#eef2f7; color:#333; border:1px solid #d6d9de;{% endif %}">
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div style="margin:12px 0;">
+      {{ form.comment.label_tag }}
+      {{ form.comment }}
+      {{ form.comment.errors }}
+    </div>
+    <button type="submit" 
+            style="padding:10px 18px; background:#27ae60; color:#fff; border:none; 
+                   border-radius:6px; cursor:pointer;">
+      Submit Feedback
+    </button>
+  </form>
+{% endblock %}
