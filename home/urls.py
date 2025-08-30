@@ -5,7 +5,9 @@ urlpatterns = [
     path("", index, name="home"),
     path("about/",about,name="about"),
     path("contact/", views.contact, name="contact"),
-    path("reservations/", views.reservations, name="reservations"),
+    path("reservatiopath("feedback/", views.feedback, name="feedback"),
+    path("feedback/", views.feedback, name="feedback"),
+    
 
 
 
