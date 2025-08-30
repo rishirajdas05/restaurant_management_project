@@ -1,29 +1,42 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block title %}Home - My Restaurant{% endblock %}
 
 {% block content %}
-  <!-- Logo -->
-  <div style="text-align:center; margin-bottom: 28px;">
-    <img src="{% static 'home/logo.png' %}" alt="My Restaurant Logo" class="logo">
-  </div>
+    <!-- Logo -->
+    <div style="text-align:center; margin-bottom: 28px;">
+        <img src="{% static 'home/logo.png' %}" alt="My Restaurant Logo" class="logo">
+    </div>
 
-  <h1>Welcome to My Restaurant 🍴</h1>
-  <p>
-    We’re delighted to serve you delicious food and a great dining experience.
-    Browse our menu, make reservations, or contact us directly using the links above.
-  </p>
+    <!-- Search Bar -->
+    <div style="text-align:center; margin-bottom: 25px;">
+        <form method="get" action="">
+            <input type="text" name="q" placeholder="Search menu items..."
+                   style="padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="submit"
+                    style="padding: 10px 18px; background-color: #27ae60; color: white;
+                           border: none; border-radius: 5px; cursor: pointer;">
+                Search
+            </button>
+        </form>
+    </div>
 
-  <h2>Today’s Highlights</h2>
-  <ul>
-    <li>Special Combo Meal – ₹299</li>
-    <li>Refreshing Cold Coffee – ₹120</li>
-    <li>Family Pizza Offer – Buy 1 Get 1 Free</li>
-  </ul>
+    <!-- Welcome Section -->
+    <h1>Welcome to My Restaurant 🍴</h1>
+    <p>
+        We’re delighted to serve you delicious food and a great dining experience.  
+        Browse our menu, make reservations, or contact us directly using the links above.
+    </p>
 
-  <p>
-    Enjoy your meal and have a wonderful time with us.
-    <strong>Call us:</strong> +91 98765 43210
-  </p>
+    <h2>Today’s Highlights</h2>
+    <ul>
+        <li>Special Combo Meal – ₹299</li>
+        <li>Refreshing Cold Coffee – ₹120</li>
+        <li>Family Pizza Offer – Buy 1 Get 1 Free</li>
+    </ul>
+
+    <p>
+        Enjoy your meal and have a wonderful time with us.  
+        <strong>Call us:</strong> +91 98765 43210
+    </p>
 {% endblock %}
