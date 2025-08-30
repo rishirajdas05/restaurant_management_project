@@ -1,27 +1,20 @@
-from django.shortcuts import render
-from django.conf import settings
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import FeedbackForm
 
-def index(request):
-    return render(request, "home/index.html")
-def about(request):
-    return render(request, "about.html")
-def index(request):
-    context = {
-        "restaurant_name": settings.RESTAURANT_NAME
-    }
-    return render(request, "index.html", context)
-def index(request):
-    context = {
-        "restaurant_phone": settings.RESTAURANT_PHONE
-    }
-    return render(request, "index.html", context)
-    
-def index(request):
-    context = {
-        "restaurant_name": "Foodie Paradise",
-        "restaurant_phone": getattr(settings, "RESTAURANT_PHONE", "+91 98765 43210")
-    }
-    return render(request, "index.html", context)  
-    
-def reservations(request):
-    return render(request, "reservations.html") 
+def feedback(request):
+    if request.method == "POST":
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, "Thank you! Your feedback has been submitted.")
+                return redirect("feedback")
+            except Exception as e:
+                messages.error(request, "Sorry, we couldn't save your feedback. Please try again.")
+        else:
+            messages.error(request, "Please fix the errors below.")
+    else:
+        form = FeedbackForm()
+
+    return render(request, "feedback.html", {"form": form})
