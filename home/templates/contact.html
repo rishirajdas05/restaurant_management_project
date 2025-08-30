@@ -1,25 +1,48 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Contact Us</title>
-    <link rel="stylesheet" href="{% static 'home/style.css' %}">
-</head>
-<body>
-    <header>
-        <h2>Contact Us</h2>
-    </header>
+{% extends "base.html" %}
 
-    <div class="container">
-        <h1>Get in Touch</h1>
-        <p>If you have any questions, feel free to reach out to us!</p>
+{% block title %}Contact Us - My Restaurant{% endblock %}
 
-        <h3>Contact Information</h3>
-        <ul>
-            <li><strong>Email:</strong> support@example.com</li>
-            <li><strong>Phone:</strong> +91 98765 43210</li>
-            <li><strong>Address:</strong> 123, Main Street, Gwalior, MP, India</li>
-        </ul>
+{% block content %}
+<h1>Contact Us</h1>
+<p>If you have any questions, feel free to reach out to us!</p>
+
+<form id="contactForm" method="post" action="">
+    {% csrf_token %}
+    <div style="margin-bottom: 12px;">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" 
+               style="padding: 8px; width: 250px; border: 1px solid #ccc; border-radius: 5px;" required>
     </div>
-</body>
-</html>
+
+    <div style="margin-bottom: 12px;">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"
+               style="padding: 8px; width: 250px; border: 1px solid #ccc; border-radius: 5px;" required>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="40"
+                  style="padding: 8px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+    </div>
+
+    <button type="submit" 
+            style="padding: 10px 18px; background: #27ae60; color: #fff; border: none; 
+                   border-radius: 5px; cursor: pointer;">
+        Send
+    </button>
+</form>
+
+<script>
+  // Basic client-side validation
+  document.getElementById("contactForm").addEventListener("submit", function(event) {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      if (!name || !email) {
+          alert("Please fill in both your name and email.");
+          event.preventDefault(); // stop form from submitting
+      }
+  });
+</script>
+{% endblock %}
