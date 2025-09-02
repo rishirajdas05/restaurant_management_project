@@ -4,95 +4,56 @@
 {% block title %}Home - My Restaurant{% endblock %}
 
 {% block content %}
-  <!-- Optional logo -->
-  <div style="text-align:center; margin-bottom: 24px;">
-    <img src="{% static 'home/logo.png' %}" alt="My Restaurant Logo" class="logo"
-         style="max-width: 220px; height: auto;">
-  </div>
-
-  <!-- Search bar (optional, harmless if you already have it) -->
-  <div style="text-align:center; margin-bottom: 16px;">
-    <form method="get" action="">
-      <input type="text" name="q" placeholder="Search menu items..."
-             style="padding: 10px; width: 260px; border: 1px solid #ccc; border-radius: 6px;">
-      <button type="submit"
-              style="padding: 10px 16px; background:#27ae60; color:#fff; border:none; border-radius:6px; cursor:pointer;">
-        Search
-      </button>
-    </form>
-  </div>
-
   <h1>Welcome to My Restaurant 🍴</h1>
-  <p>Browse our menu below:</p>
+  <p>Explore our delicious menu below:</p>
 
   <!-- Menu Section -->
-  <section aria-labelledby="menu-heading">
-    <h2 id="menu-heading" style="margin-top:20px;">Menu</h2>
+  <section id="menu">
+      <h2>Menu</h2>
 
-    <!-- Loading / Error states -->
-    <p id="menu-loading" style="margin: 10px 0;">Loading menu…</p>
-    <p id="menu-error" style="display:none; color:#c0392b; margin:10px 0;">
-      Sorry, we couldn’t load the menu. Please try again later.
-    </p>
+      <!-- Loading and error messages -->
+      <p id="menu-loading">Loading menu…</p>
+      <p id="menu-error" style="display:none; color:red;">Failed to load menu. Please try again later.</p>
 
-    <!-- Menu list -->
-    <ul id="menu-list" style="list-style:none; padding-left:0; display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:14px;">
-      <!-- Items will be injected here -->
-    </ul>
+      <!-- List of menu items -->
+      <ul id="menu-list" style="list-style:none; padding-left:0;">
+          <!-- Items will be injected here -->
+      </ul>
   </section>
 
-  <!-- Pass API URL via data-attribute; fallback if not provided -->
-  <div id="menu-config"
-       data-api-url="{{ menu_api_url|default:'/api/menu/' }}">
-  </div>
+  <!-- API URL passed from view -->
+  <div id="menu-config" data-api-url="{{ menu_api_url }}"></div>
 
   <script>
-    (function() {
-      const cfgEl = document.getElementById('menu-config');
-      const apiUrl = cfgEl.dataset.apiUrl || '/api/menu/';
-      const listEl = document.getElementById('menu-list');
-      const loadingEl = document.getElementById('menu-loading');
-      const errorEl = document.getElementById('menu-error');
+    document.addEventListener("DOMContentLoaded", function () {
+        const configEl = document.getElementById("menu-config");
+        const apiUrl = configEl.dataset.apiUrl;
+        const listEl = document.getElementById("menu-list");
+        const loadingEl = document.getElementById("menu-loading");
+        const errorEl = document.getElementById("menu-error");
 
-      function currencyINR(value) {
-        // Basic format for INR ₹
-        try {
-          return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(value);
-        } catch (_) {
-          return '₹' + (value ?? 0);
-        }
-      }
-
-      fetch(apiUrl, { method: 'GET' })
-        .then(res => {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        })
-        .then(items => {
-          loadingEl.style.display = 'none';
-          if (!Array.isArray(items) || items.length === 0) {
-            listEl.innerHTML = '<li style="opacity:0.8;">No items available.</li>';
-            return;
-          }
-          // Render items
-          listEl.innerHTML = items.map(it => `
-            <li style="border:1px solid #e6e6e6; border-radius:10px; padding:12px; background:#fff; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-              <div style="display:flex; align-items:center; gap:12px;">
-                ${it.image ? `<img src="${it.image}" alt="${it.name || 'Menu item'}"
-                      style="width:56px; height:56px; object-fit:cover; border-radius:8px;">` : ''}
-                <div>
-                  <div style="font-weight:600; margin-bottom:4px;">${it.name ?? 'Item'}</div>
-                  <div style="opacity:0.8;">${currencyINR(it.price ?? 0)}</div>
-                </div>
-              </div>
-            </li>
-          `).join('');
-        })
-        .catch(err => {
-          console.error('Menu fetch error:', err);
-          loadingEl.style.display = 'none';
-          errorEl.style.display = 'block';
-        });
-    })();
+        fetch(apiUrl)
+          .then(res => {
+              if (!res.ok) throw new Error("Network error");
+              return res.json();
+          })
+          .then(data => {
+              loadingEl.style.display = "none";
+              if (data.length === 0) {
+                  listEl.innerHTML = "<li>No menu items available.</li>";
+                  return;
+              }
+              listEl.innerHTML = data.map(item => `
+                  <li style="margin:10px 0; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                      <strong>${item.name}</strong> — ₹${item.price}
+                  </li>
+              `).join("");
+          })
+          .catch(err => {
+              console.error(err);
+              loadingEl.style.display = "none";
+              errorEl.style.display = "block";
+          });
+    });
   </script>
 {% endblock %}
