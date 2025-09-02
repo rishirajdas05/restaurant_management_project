@@ -18,3 +18,7 @@ def feedback(request):
         form = FeedbackForm()
 
     return render(request, "feedback.html", {"form": form})
+def index(request):
+    return render(request, "index.html", {
+        "menu_api_url": "/orders/menu-api/"   # This is your API endpoint from previous task
+    })
