@@ -1,8 +1,8 @@
 from django.contrib import admin
+from .models import MenuItem   # adjust if your model is named differently
 
-# Register your models here.
-from .models import UserProfile
-
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ("user", "phone")
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "price")
+    search_fields = ("name",)
+    list_filter = ("price",)
