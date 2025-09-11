@@ -1,40 +1,79 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Home - My Restaurant{% endblock %}
+{% block title %}Home - {{ restaurant_name|default:"My Restaurant" }}{% endblock %}
 
 {% block content %}
-  <h1>Welcome to My Restaurant 🍴</h1>
-  <p>We’re delighted to serve you. Please leave your contact info below.</p>
+  <h1>Welcome to {{ restaurant_name|default:"My Restaurant" }} 🍴</h1>
+  <p>Explore our delicious menu below and come visit us!</p>
 
-  <!-- Contact Us Form -->
-  <h2>Contact Us</h2>
+  <!-- (Optional) Menu list UI via your existing JS fetch -->
+  <section id="menu" style="margin: 18px 0;">
+    <h2>Menu</h2>
+    <p id="menu-loading">Loading menu…</p>
+    <p id="menu-error" style="display:none; color:#c0392b;">Failed to load menu. Please try again later.</p>
+    <ul id="menu-list" style="list-style:none; padding-left:0;"></ul>
+  </section>
 
-  {% if messages %}
-    <ul style="list-style:none; padding:0;">
-      {% for message in messages %}
-        <li style="margin:8px 0; padding:10px; border-radius:5px; background:#eaf7ea; color:#2e7d32;">
-          {{ message }}
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  <!-- Address & Map Section -->
+  <section aria-labelledby="address-heading" style="margin-top: 28px;">
+    <h2 id="address-heading" style="margin-bottom:8px;">Find Us</h2>
+    <p style="margin: 0 0 12px;">
+      <strong>{{ restaurant_name|default:"My Restaurant" }}</strong><br>
+      {{ restaurant_address|default:"123, Main Street, Gwalior, MP 474001, India" }}
+    </p>
 
-  <form method="post" action="">
-    {% csrf_token %}
-    <div style="margin-bottom:12px;">
-      {{ form.name.label_tag }}
-      {{ form.name }}
-      {{ form.name.errors }}
+    <div style="border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+      <iframe
+        title="{{ restaurant_name|default:'My Restaurant' }} on Google Maps"
+        width="100%" height="320"
+        style="border:0;"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="{{ maps_embed_src|default:'https://www.google.com/maps?q=Gwalior&output=embed' }}">
+      </iframe>
     </div>
-    <div style="margin-bottom:12px;">
-      {{ form.email.label_tag }}
-      {{ form.email }}
-      {{ form.email.errors }}
-    </div>
-    <button type="submit"
-            style="padding:10px 16px; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer;">
-      Submit
-    </button>
-  </form>
+  </section>
+
+  <!-- Pass API URL for the menu fetch (if you’re using it) -->
+  <div id="menu-config" data-api-url="{{ menu_api_url|default:'/orders/menu-api/' }}"></div>
+
+  <script>
+    // Simple client-side fetch for menu items (safe to keep if you already had it)
+    (function () {
+      const cfgEl = document.getElementById("menu-config");
+      if (!cfgEl) return;
+
+      const apiUrl = cfgEl.dataset.apiUrl || "/orders/menu-api/";
+      const listEl = document.getElementById("menu-list");
+      const loadingEl = document.getElementById("menu-loading");
+      const errorEl = document.getElementById("menu-error");
+
+      fetch(apiUrl)
+        .then(res => {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(items => {
+          loadingEl.style.display = "none";
+          if (!Array.isArray(items) || items.length === 0) {
+            listEl.innerHTML = "<li>No items available.</li>";
+            return;
+          }
+          listEl.innerHTML = items.map(it => `
+            <li style="margin:10px 0; padding:10px; border:1px solid #e5e5e5; border-radius:8px;">
+              <strong>${it.name ?? "Item"}</strong>
+              <div style="opacity:0.85;">${it.description ?? ""}</div>
+              <div style="margin-top:4px;">₹${it.price ?? 0}</div>
+            </li>
+          `).join("");
+        })
+        .catch(err => {
+          console.error("Menu fetch error:", err);
+          if (loadingEl) loadingEl.style.display = "none";
+          if (errorEl) errorEl.style.display = "block";
+        });
+    })();
+  </script>
 {% endblock %}
