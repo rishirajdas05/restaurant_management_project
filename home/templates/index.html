@@ -5,55 +5,36 @@
 
 {% block content %}
   <h1>Welcome to My Restaurant 🍴</h1>
-  <p>Explore our delicious menu below:</p>
+  <p>We’re delighted to serve you. Please leave your contact info below.</p>
 
-  <!-- Menu Section -->
-  <section id="menu">
-      <h2>Menu</h2>
+  <!-- Contact Us Form -->
+  <h2>Contact Us</h2>
 
-      <!-- Loading and error messages -->
-      <p id="menu-loading">Loading menu…</p>
-      <p id="menu-error" style="display:none; color:red;">Failed to load menu. Please try again later.</p>
+  {% if messages %}
+    <ul style="list-style:none; padding:0;">
+      {% for message in messages %}
+        <li style="margin:8px 0; padding:10px; border-radius:5px; background:#eaf7ea; color:#2e7d32;">
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
-      <!-- List of menu items -->
-      <ul id="menu-list" style="list-style:none; padding-left:0;">
-          <!-- Items will be injected here -->
-      </ul>
-  </section>
-
-  <!-- API URL passed from view -->
-  <div id="menu-config" data-api-url="{{ menu_api_url }}"></div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const configEl = document.getElementById("menu-config");
-        const apiUrl = configEl.dataset.apiUrl;
-        const listEl = document.getElementById("menu-list");
-        const loadingEl = document.getElementById("menu-loading");
-        const errorEl = document.getElementById("menu-error");
-
-        fetch(apiUrl)
-          .then(res => {
-              if (!res.ok) throw new Error("Network error");
-              return res.json();
-          })
-          .then(data => {
-              loadingEl.style.display = "none";
-              if (data.length === 0) {
-                  listEl.innerHTML = "<li>No menu items available.</li>";
-                  return;
-              }
-              listEl.innerHTML = data.map(item => `
-                  <li style="margin:10px 0; padding:10px; border:1px solid #ddd; border-radius:6px;">
-                      <strong>${item.name}</strong> — ₹${item.price}
-                  </li>
-              `).join("");
-          })
-          .catch(err => {
-              console.error(err);
-              loadingEl.style.display = "none";
-              errorEl.style.display = "block";
-          });
-    });
-  </script>
+  <form method="post" action="">
+    {% csrf_token %}
+    <div style="margin-bottom:12px;">
+      {{ form.name.label_tag }}
+      {{ form.name }}
+      {{ form.name.errors }}
+    </div>
+    <div style="margin-bottom:12px;">
+      {{ form.email.label_tag }}
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+    <button type="submit"
+            style="padding:10px 16px; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer;">
+      Submit
+    </button>
+  </form>
 {% endblock %}
