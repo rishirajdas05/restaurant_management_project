@@ -1,10 +1,9 @@
-
 from django.db import models
 
-class Feedback(models.Model):
-    comment = models.TextField()
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        # First 40 chars as a preview
-        return (self.comment[:40] + "…") if len(self.comment) > 40 else self.comment
+        return f"{self.name} ({self.email})"
