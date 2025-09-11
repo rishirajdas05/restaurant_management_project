@@ -1,17 +1,17 @@
 from django import forms
-from .models import Feedback
+from .models import ContactMessage
 
-class FeedbackForm(forms.ModelForm):
+class ContactForm(forms.ModelForm):
     class Meta:
-        model = Feedback
-        fields = ["comment"]
+        model = ContactMessage
+        fields = ["name", "email"]
         widgets = {
-            "comment": forms.Textarea(attrs={
-                "rows": 5,
-                "placeholder": "Share your feedback…",
-                "style": "width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;"
-            })
-        }
-        labels = {
-            "comment": "Your feedback"
+            "name": forms.TextInput(attrs={
+                "placeholder": "Your name",
+                "class": "form-control"
+            }),
+            "email": forms.EmailInput(attrs={
+                "placeholder": "Your email",
+                "class": "form-control"
+            }),
         }
