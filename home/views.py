@@ -9,6 +9,7 @@ def index(request):
 
     context = {
         # If you already show the menu via JS fetch, keep your API URL here:
+        "restaurant_name": getattr(settings, "RESTAURANT_NAME", "My Restaurant"),
         "menu_api_url": "/orders/menu-api/",
         "restaurant_name": name,
         "restaurant_address": addr,
