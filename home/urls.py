@@ -8,6 +8,7 @@ urlpatterns = [
     path("reservatiopath("feedback/", views.feedback, name="feedback"),
     path("feedback/", views.feedback, name="feedback"),
     path("", views.index, name="home"),
+    path("menu/", views.menu_page, name="menu_page"),
 
 
 
