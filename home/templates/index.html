@@ -1,8 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
-
 {% block title %}Home - {{ restaurant_name|default:"My Restaurant" }}{% endblock %}
-
 {% block content %}
   <h1>Welcome to {{ restaurant_name|default:"My Restaurant" }} 🍴</h1>
   <p>Explore our delicious menu below and come visit us!</p>
