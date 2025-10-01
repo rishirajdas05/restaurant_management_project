@@ -1,19 +1,31 @@
-# home/views.py
 from django.conf import settings
 from django.shortcuts import render
-from urllib.parse import quote_plus
+from .models import MenuItem
+
 
 def index(request):
-    name = getattr(settings, "RESTAURANT_NAME", "My Restaurant")
-    addr = getattr(settings, "RESTAURANT_ADDRESS", "123, Main Street, Gwalior, MP 474001, India")
-
+    """
+    Homepage: shows a welcome message and (optionally) fetches the menu via JS.
+    Reads the restaurant name from settings (with a safe fallback).
+    """
     context = {
-        # If you already show the menu via JS fetch, keep your API URL here:
         "restaurant_name": getattr(settings, "RESTAURANT_NAME", "My Restaurant"),
+        # If you’re using the JS menu fetch on the homepage, keep/adjust this:
         "menu_api_url": "/orders/menu-api/",
-        "restaurant_name": name,
-        "restaurant_address": addr,
-        # Simple iframe embed using the address
-        "maps_embed_src": f"https://www.google.com/maps?q={quote_plus(addr)}&output=embed",
     }
     return render(request, "index.html", context)
+
+
+def menu_page(request):
+    """
+    Dedicated /menu/ page that renders MenuItem objects from the database.
+    Includes a simple try/except so unexpected DB issues fail gracefully.
+    """
+    items = []
+    error = None
+    try:
+        items = MenuItem.objects.order_by("name")
+    except Exception as exc:  # pragma: no cover (basic safety)
+        error = "Sorry, we couldn't load the menu right now. Please try again later."
+
+    return render(request, "menu.html", {"items": items, "error": error})
