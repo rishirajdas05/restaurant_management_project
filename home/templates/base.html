@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Restaurant{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'home/style.css' %}">
+    
     <style>
         body {
             margin: 0;
@@ -57,6 +58,7 @@
     <!-- Header -->
     <header>
         <h2>My Restaurant</h2>
+        <h2>{{ restaurant_name|default:"My Restaurant" }}</h2>
         <nav>
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'menu_list' %}">Menu</a>
